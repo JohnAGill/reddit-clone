@@ -8,7 +8,7 @@ export default props => {
   })
   return (
     <button type="button" className={classes} onClick={() => props.onClick()}>
-      {props.title}
+      <span style={{ fontSize: 10 }}>{props.title}</span>
     </button>
   )
 }
