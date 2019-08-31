@@ -1,6 +1,6 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"
-import './App.css'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import './App.scss'
 import FrontPage from './Containers/FrontPage'
 import About from './Containers/About'
 import Header from './Components/Header'
@@ -17,4 +17,4 @@ function App() {
   )
 }
 
-export default App;
+export default App

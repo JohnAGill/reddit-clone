@@ -1,0 +1,12 @@
+
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "declaration-block-no-redundant-longhand-properties": [true, {
+      "ignoreShorthands": ["/.*/"]
+    }],
+    "selector-pseudo-class-no-unknown": [true, {
+      "ignorePseudoClasses": ["global"]
+    }],
+  }
+}
