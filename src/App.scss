@@ -1,0 +1,23 @@
+
+html,
+body,
+#root {
+  height: 100%;
+  font-size: 12px;
+  font-family: Verdana, sans-serif;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  transition: color 250ms;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
