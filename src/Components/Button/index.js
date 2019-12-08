@@ -2,13 +2,17 @@ import React from 'react'
 import classNames from 'classnames'
 import './styles.scss'
 
-export default props => {
+export default ({ onClick, title, solid, large }) => {
   const classes = classNames('reddit-clone-button', {
-    solid: props.solid,
+    solid: solid,
+    large: large,
+  })
+  const textClasses = classNames('reddit-clone-button-text', {
+    large: large,
   })
   return (
-    <button type="button" className={classes} onClick={() => props.onClick()}>
-      <span style={{ fontSize: 10 }}>{props.title}</span>
+    <button type="button" className={classes} onClick={() => onClick()}>
+      <span className={textClasses}>{title}</span>
     </button>
   )
 }

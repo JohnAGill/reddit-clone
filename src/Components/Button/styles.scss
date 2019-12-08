@@ -11,4 +11,17 @@
     background: #0079d3;
     color: white;
   }
+
+  &.large {
+    min-width: 200px;
+    min-height: 50px;
+  }
+}
+
+.reddit-clone-button-text {
+  font-size: 10px;
+
+  &.large {
+    font-size: 18px;
+  }
 }
