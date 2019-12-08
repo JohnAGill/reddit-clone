@@ -25,6 +25,7 @@ export const signUp = (email, password) => {
         .database()
         .ref('users/' + id)
         .set({ email: email })
+      dispatch({ type: 'user/SET_SIGN_UP_MODAL', payload: false })
       return dispatch({ type: 'user/SIGN_UP_SUCCESS', payload: result })
     } catch (error) {
       return dispatch({ type: 'user/SIGN_UP_ERROR', payload: error.message })
