@@ -8,7 +8,6 @@ import './styles.scss'
 
 class FrontPage extends Component {
   componentDidMount() {
-    console.log(this.props)
     this.props.dispatch(getPosts())
   }
 
@@ -17,7 +16,14 @@ class FrontPage extends Component {
       <div className="front-page-container">
         {_.map(this.props.posts, (post, sub) => {
           return _.map(post, (entry, id) => {
-            return <Post entry={entry} upVote={() => this.props.dispatch(upVotePost(sub, id))} downVote={() => this.props.dispatch(downVotePost(sub, id))} />
+            return (
+              <Post
+                onSubClick={() => this.props.history.push(`r/${sub}`)}
+                entry={entry}
+                upVote={() => this.props.dispatch(upVotePost(sub, id))}
+                downVote={() => this.props.dispatch(downVotePost(sub, id))}
+              />
+            )
           })
         })}
       </div>

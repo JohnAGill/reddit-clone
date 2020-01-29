@@ -1,13 +1,15 @@
 import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Router, Route } from 'react-router-dom'
 import firebase from 'firebase'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import store, { persistor } from './redux/store'
 import './App.scss'
 import FrontPage from './Containers/FrontPage'
+import Sub from './Containers/Sub'
 import About from './Containers/About'
 import Header from './Containers/Header'
+import history from './history'
 
 firebase.initializeApp({
   apiKey: 'AIzaSyAgo-cm0dvDkUewFsCJvFwjmgCErPLM48w',
@@ -22,10 +24,11 @@ firebase.initializeApp({
 export default () => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <Router>
+      <Header />
+      <Router history={history}>
         <div style={{ backgroundColor: '#DAE0E6', height: '100%' }}>
-          <Header />
           <Route exact path="/" component={FrontPage} />
+          <Route path="/r/:name" component={Sub} />
           <Route path="/about" component={About} />
         </div>
       </Router>

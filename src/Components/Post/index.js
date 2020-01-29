@@ -17,7 +17,9 @@ export default props => {
       </div>
       <div className="post-content-container">
         <div className="post-top-content-container">
-          <p className="post-top-sub-text">r/{props.entry.sub}</p>
+          <p onClick={props.onSubClick} className="post-top-sub-text">
+            r/{props.entry.sub}
+          </p>
           <p className="post-top-user-name-text">u/{props.entry.userName}</p>
           <p className="post-top-user-name-text">{diff}</p>
         </div>
