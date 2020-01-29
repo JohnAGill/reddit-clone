@@ -10,6 +10,7 @@ import './styles.scss'
 
 class Header extends Component {
   render() {
+    console.log(this.props)
     return (
       <Fragment>
         {this.props.logInModal ? (
