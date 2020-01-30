@@ -15,7 +15,7 @@ export const logIn = (email, password) => {
   }
 }
 
-export const signUp = (email, password) => {
+export const signUp = (email, password, username) => {
   return async dispatch => {
     dispatch({ type: 'user/SIGN_UP_PENDING' })
     try {
@@ -24,7 +24,7 @@ export const signUp = (email, password) => {
       await firebase
         .database()
         .ref('users/' + id)
-        .set({ email: email })
+        .set({ email: email, username: username })
       dispatch({ type: 'user/SET_SIGN_UP_MODAL', payload: false })
       return dispatch({ type: 'user/SIGN_UP_SUCCESS', payload: result })
     } catch (error) {

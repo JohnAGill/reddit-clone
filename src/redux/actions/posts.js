@@ -17,9 +17,11 @@ export const getPosts = () => {
 export const upVotePost = (sub, id) => {
   return dispatch => {
     dispatch({ type: 'posts/UPVOTE_POST_PENDING' })
+    console.log(id)
     try {
       const postRef = firebase.database().ref(`posts/${sub}/${id}`)
       postRef.transaction(post => {
+        console.log(post)
         return {
           ...post,
           upVotes: (post.upVotes || 0) + 1,

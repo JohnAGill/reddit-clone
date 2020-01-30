@@ -30,3 +30,20 @@
   margin-left: 20px;
   text-transform: capitalize;
 }
+
+.sub-header-content {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex: 1;
+  height: 70px;
+}
+
+.sub-header-post-button {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 16px;
+  height: 70px;
+}
