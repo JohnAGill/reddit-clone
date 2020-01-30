@@ -33,7 +33,7 @@ class Header extends Component {
           <NewSubModal
             buttonTitle="CREATE SUB"
             title="Create New Sub"
-            error={this.props.user.userLogInError}
+            error={this.props.subs.createSubError}
             submit={(subName, file) => this.props.dispatch(createNewSub(subName, file))}
             close={() => this.props.dispatch(newSubModal(false))}
           />
