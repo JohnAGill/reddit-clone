@@ -45,6 +45,13 @@
   justify-content: center;
 }
 
+.login-modal-swap-button-container {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  margin-top: 5px;
+}
+
 .login-modal-close-container {
   position: relative;
   left: 560px;

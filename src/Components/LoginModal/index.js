@@ -25,6 +25,9 @@ export default props => {
       <div className="login-modal-button-container">
         <Button title={props.buttonTitle} onClick={() => props.submit(email, password)} solid large />
       </div>
+      <div className="login-modal-swap-button-container">
+        <Button title="SIGN UP" onClick={() => props.swapToSignUp()} solid large />
+      </div>
       {props.error ? (
         <div className="login-modal-error-container">
           <p>An Error occured, {props.error}</p>
