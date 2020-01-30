@@ -4,11 +4,8 @@ import _ from 'lodash'
 import './styles.scss'
 
 const calculateVotes = post => {
-  console.log(post)
   const upVotes = post.upVotes ? _.size(post.upVotes) : 0
   const downVotes = post.downVotes ? _.size(post.downVotes) : 0
-  console.log(upVotes)
-  console.log(downVotes)
   return upVotes - downVotes
 }
 
@@ -35,6 +32,7 @@ export default props => {
         </div>
         <p>{props.entry.title}</p>
         <p>{props.entry.body}</p>
+        {props.entry.imageUrl ? <img alt="" src={`${props.entry.imageUrl}`} /> : null}
       </div>
     </div>
   )

@@ -26,7 +26,7 @@ export default () => (
     <PersistGate loading={null} persistor={persistor}>
       <Header />
       <Router history={history}>
-        <div style={{ backgroundColor: '#DAE0E6', height: '100%' }}>
+        <div style={{ backgroundColor: '#DAE0E6', height: '100%', overflow: 'scroll' }}>
           <Route exact path="/" component={FrontPage} />
           <Route path="/r/:name" component={Sub} />
           <Route path="/about" component={About} />
