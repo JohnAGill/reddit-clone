@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Logo from '../../Components/Logo'
 import Button from '../../Components/Button'
 import LoginModal from '../../Components/LoginModal'
+import SignUpModal from '../../Components/SignUpModal'
 import Test from '../../assets/redditLogo.svg'
 import { logIn, signUp, logInModal, signUpModal, signOut } from '../../redux/actions/user'
 import './styles.scss'
@@ -20,15 +21,23 @@ class Header extends Component {
             error={this.props.userLogInError}
             submit={(email, password) => this.props.dispatch(logIn(email, password))}
             close={() => this.props.dispatch(logInModal(false))}
+            swapToSignUp={() => {
+              this.props.dispatch(logInModal(false))
+              this.props.dispatch(signUpModal(true))
+            }}
           />
         ) : null}
         {this.props.signUpModal ? (
-          <LoginModal
+          <SignUpModal
             buttonTitle="SIGN UP"
             title="Sign up"
             error={this.props.userSignUpError}
-            submit={(email, password) => this.props.dispatch(signUp(email, password))}
+            submit={(email, password, username) => this.props.dispatch(signUp(email, password, username))}
             close={() => this.props.dispatch(signUpModal(false))}
+            swapToLogin={() => {
+              this.props.dispatch(signUpModal(false))
+              this.props.dispatch(logInModal(true))
+            }}
           />
         ) : null}
         <div className="reddit-clone-header-container">

@@ -17,6 +17,10 @@
   padding-left: 4px;
 }
 
+.floating-label textarea {
+  height: 200px;
+}
+
 .floating-label span {
   box-sizing: border-box;
   font-size: 1rem;
@@ -37,6 +41,10 @@
   padding: 0;
   padding-left: 4px;
   padding-top: 4px;
+}
+
+.floating-label textarea:focus + span {
+  visibility: hidden;
 }
 
 .floating-label input:focus:not(:focus-visible),

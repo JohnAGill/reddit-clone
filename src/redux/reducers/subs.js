@@ -1,6 +1,7 @@
 const initialState = {
   subInfo: {},
   subInfoError: null,
+  newPostModal: false,
 }
 
 export default function subs(state = initialState, action) {
@@ -41,6 +42,12 @@ export default function subs(state = initialState, action) {
         ...state,
         posts: [],
         postsError: action.payload,
+      }
+    }
+    case 'subs/NEW_POST_MODAL': {
+      return {
+        ...state,
+        newPostModal: action.payload,
       }
     }
     default:

@@ -4,7 +4,7 @@ import Button from '../Button'
 import './styles.scss'
 
 export default props => {
-  const [userName, setUserName] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   return (
     <div className="login-modal-container">
@@ -16,14 +16,17 @@ export default props => {
       </div>
       <div className="login-modal-inputs-container">
         <div className="login-modal-username-container">
-          <FloatingLabel id="username" name="username" placeholder="username" type="email" value={userName} onChange={evt => setUserName(evt.currentTarget.value)} />
+          <FloatingLabel id="email" name="email" placeholder="email" type="email" value={email} onChange={evt => setEmail(evt.currentTarget.value)} />
         </div>
         <div className="login-modal-password-container">
           <FloatingLabel id="password" name="password" placeholder="password" type="password" value={password} onChange={evt => setPassword(evt.currentTarget.value)} />
         </div>
       </div>
       <div className="login-modal-button-container">
-        <Button title={props.buttonTitle} onClick={() => props.submit(userName, password)} solid large />
+        <Button title={props.buttonTitle} onClick={() => props.submit(email, password)} solid large />
+      </div>
+      <div className="login-modal-swap-button-container">
+        <Button title="SIGN UP" onClick={() => props.swapToSignUp()} solid large />
       </div>
       {props.error ? (
         <div className="login-modal-error-container">

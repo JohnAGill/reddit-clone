@@ -1,9 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import { upVotePost, downVotePost } from '../../redux/actions/posts'
-import { getSubInfo, getSubPosts } from '../../redux/actions/subs'
+import { getSubInfo, getSubPosts, newPostModal, createNewPost } from '../../redux/actions/subs'
 import Post from '../../Components/Post'
+import Button from '../../Components/Button'
+import NewPostModal from '../../Components/NewPostModal'
+
 import './styles.scss'
 
 class Sub extends Component {
@@ -15,17 +18,33 @@ class Sub extends Component {
   render() {
     const sub = this.props.match.params.name
     return (
-      <div>
-        <div className="sub-header-container">
-          <img alt="" className="sub-header-image" src={this.props.subs.subInfo.image} />
-          <p className="sub-header-text">{this.props.subs.subInfo.title}</p>
+      <Fragment>
+        {this.props.subs.newPostModal ? (
+          <NewPostModal
+            buttonTitle="CREATE POST"
+            title="New Post"
+            error={this.props.subs.newPostError}
+            submit={(title, content) => this.props.dispatch(createNewPost(title, content, sub))}
+            close={() => this.props.dispatch(newPostModal(false))}
+          />
+        ) : null}
+        <div>
+          <div className="sub-header-container">
+            <div className="sub-header-content">
+              <img alt="" className="sub-header-image" src={this.props.subs.subInfo.image} />
+              <p className="sub-header-text">{this.props.subs.subInfo.title}</p>
+            </div>
+            <div className="sub-header-post-button">
+              <Button title="NEW POST" onClick={() => this.props.dispatch(newPostModal(true))} />
+            </div>
+          </div>
+          <div className="sub-post-container">
+            {_.map(_.orderBy(this.props.subs.posts, ['timeStamp'], ['desc']), entry => {
+              return <Post entry={entry} upVote={() => this.props.dispatch(upVotePost(sub, entry.uid))} downVote={() => this.props.dispatch(downVotePost(sub, entry.uid))} />
+            })}
+          </div>
         </div>
-        <div className="sub-post-container">
-          {_.map(this.props.subs.posts, (entry, id) => {
-            return <Post entry={entry} upVote={() => this.props.dispatch(upVotePost(sub, id))} downVote={() => this.props.dispatch(downVotePost(sub, id))} />
-          })}
-        </div>
-      </div>
+      </Fragment>
     )
   }
 }
