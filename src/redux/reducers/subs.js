@@ -2,6 +2,7 @@ const initialState = {
   subInfo: {},
   subInfoError: null,
   newPostModal: false,
+  newSubModal: false,
 }
 
 export default function subs(state = initialState, action) {
@@ -48,6 +49,12 @@ export default function subs(state = initialState, action) {
       return {
         ...state,
         newPostModal: action.payload,
+      }
+    }
+    case 'subs/NEW_SUB_MODAL': {
+      return {
+        ...state,
+        newSubModal: action.payload,
       }
     }
     default:
