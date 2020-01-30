@@ -1,6 +1,7 @@
 import firebase from 'firebase'
 import moment from 'moment'
 import superagent from 'superagent'
+import _ from 'lodash'
 
 export const getSubInfo = sub => {
   return dispatch => {
@@ -33,7 +34,7 @@ export const getSubPosts = sub => {
 export const newPostModal = state => ({ type: 'subs/NEW_POST_MODAL', payload: state })
 export const newSubModal = state => ({ type: 'subs/NEW_SUB_MODAL', payload: state })
 
-export const createNewPost = (title, content, sub) => {
+export const createNewPost = (title, content, sub, image) => {
   return async (dispatch, getState) => {
     dispatch({ type: 'subs/CREATE_NEW_POST_PENDING' })
     try {
@@ -48,6 +49,32 @@ export const createNewPost = (title, content, sub) => {
             .child(`posts/${sub}`)
             .push().key
           const postRef = firebase.database().ref(`posts/${sub}/${newPostKey}`)
+
+          if (!_.isEmpty(image) ? image : null) {
+            try {
+              await superagent
+                .post('https://api.cloudinary.com/v1_1/dculjemh4/upload')
+                .field('upload_preset', 'ueukoh4z')
+                .field('file', image)
+                .end(async (error, response) => {
+                  const url = response.body.url
+                  await postRef.set({
+                    title: title,
+                    body: content,
+                    downVotes: 0,
+                    upVotes: 0,
+                    userName: userName.val(),
+                    sub: sub,
+                    timeStamp: moment().unix(),
+                    uid: newPostKey,
+                    imageUrl: url,
+                  })
+                })
+            } catch (error) {
+              return dispatch({ type: 'subs/CREATE_NEW_POST_ERROR', payload: error.message })
+            }
+          }
+
           await postRef.set({
             title: title,
             body: content,
@@ -57,6 +84,7 @@ export const createNewPost = (title, content, sub) => {
             sub: sub,
             timeStamp: moment().unix(),
             uid: newPostKey,
+            imageUrl: null,
           })
           return dispatch({ type: 'subs/NEW_POST_MODAL', payload: false })
         } catch (error) {

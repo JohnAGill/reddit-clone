@@ -5,11 +5,9 @@ export const logIn = (email, password) => {
     dispatch({ type: 'user/LOG_IN_PENDING' })
     try {
       const result = await firebase.auth().signInWithEmailAndPassword(email, password)
-      console.log(result)
       dispatch({ type: 'user/SET_LOGIN_MODAL', payload: false })
       return dispatch({ type: 'user/LOG_IN_SUCCESS', payload: result })
     } catch (error) {
-      console.log(error)
       return dispatch({ type: 'user/LOG_IN_ERROR', payload: error.message })
     }
   }

@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import ImageUploader from 'react-images-upload'
+
 import FloatingLabel from '../FloatingLabelInput'
 import Button from '../Button'
 import './styles.scss'
@@ -6,6 +8,7 @@ import './styles.scss'
 export default props => {
   const [postTitle, setTitle] = useState('')
   const [content, setContent] = useState('')
+  const [image, setImage] = useState('')
   return (
     <div className="new-post-modal-container">
       <div onClick={() => props.close()} className="new-post-modal-close-container">
@@ -21,9 +24,10 @@ export default props => {
         <div className="new-post-modal-password-container">
           <FloatingLabel component="textarea" id="content" name="content" placeholder="content" type="text" value={content} onChange={evt => setContent(evt.currentTarget.value)} />
         </div>
+        <ImageUploader withIcon buttonText="Choose images" onChange={selectedImage => setImage(selectedImage)} imgExtension={['.jpg', '.png']} maxFileSize={5242880} withPreview />
       </div>
       <div className="new-post-modal-button-container">
-        <Button title={props.buttonTitle} onClick={() => props.submit(postTitle, content)} solid large />
+        <Button title={props.buttonTitle} onClick={() => props.submit(postTitle, content, image)} solid large />
       </div>
       {props.error ? (
         <div className="new-post-modal-error-container">

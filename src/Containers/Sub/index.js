@@ -24,7 +24,7 @@ class Sub extends Component {
             buttonTitle="CREATE POST"
             title="New Post"
             error={this.props.subs.newPostError}
-            submit={(title, content) => this.props.dispatch(createNewPost(title, content, sub))}
+            submit={(title, content, image) => this.props.dispatch(createNewPost(title, content, sub, image))}
             close={() => this.props.dispatch(newPostModal(false))}
           />
         ) : null}
