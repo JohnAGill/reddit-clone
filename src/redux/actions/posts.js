@@ -1,4 +1,5 @@
 import firebase from 'firebase'
+import _ from 'lodash'
 
 export const getPosts = () => {
   return dispatch => {
@@ -14,17 +15,40 @@ export const getPosts = () => {
   }
 }
 
+const checkForUpvote = (post, userID) => {
+  const upVotes = post.upVotes
+  return _.includes(_.keys(upVotes), userID)
+}
+const checkForDownvote = (post, userID) => {
+  const downVotes = post.downVotes
+  return _.includes(_.keys(downVotes), userID)
+}
+
 export const upVotePost = (sub, id) => {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch({ type: 'posts/UPVOTE_POST_PENDING' })
-    console.log(id)
     try {
+      const userID = getState().user.userDetails.user.uid
       const postRef = firebase.database().ref(`posts/${sub}/${id}`)
       postRef.transaction(post => {
-        console.log(post)
+        if (checkForUpvote(post, userID)) {
+          return {
+            ...post,
+            upVotes: {
+              ...post.upVotes,
+              [userID]: 1,
+            },
+          }
+        }
         return {
           ...post,
-          upVotes: (post.upVotes || 0) + 1,
+          upVotes: {
+            ...post.upVotes,
+            [userID]: 1,
+          },
+          downVotes: {
+            ..._.without(post.downVotes, userID),
+          },
         }
       })
       return dispatch({ type: 'posts/UPVOTE_POST_SUCCESS' })
@@ -35,14 +59,29 @@ export const upVotePost = (sub, id) => {
 }
 
 export const downVotePost = (sub, id) => {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch({ type: 'posts/UPVOTE_POST_PENDING' })
     try {
+      const userID = getState().user.userDetails.user.uid
       const postRef = firebase.database().ref(`posts/${sub}/${id}`)
       postRef.transaction(post => {
+        if (checkForDownvote(post, userID)) {
+          return {
+            ...post,
+            downVotes: {
+              ...post.downVotes,
+            },
+          }
+        }
         return {
           ...post,
-          downVotes: (post.downVotes || 0) + 1,
+          downVotes: {
+            ...post.downVotes,
+            [userID]: 1,
+          },
+          upVotes: {
+            ..._.without(post.upVotes, userID),
+          },
         }
       })
       return dispatch({ type: 'posts/UPVOTE_POST_SUCCESS' })

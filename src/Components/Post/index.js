@@ -1,6 +1,16 @@
 import React from 'react'
 import moment from 'moment'
+import _ from 'lodash'
 import './styles.scss'
+
+const calculateVotes = post => {
+  console.log(post)
+  const upVotes = post.upVotes ? _.size(post.upVotes) : 0
+  const downVotes = post.downVotes ? _.size(post.downVotes) : 0
+  console.log(upVotes)
+  console.log(downVotes)
+  return upVotes - downVotes
+}
 
 export default props => {
   const diff = moment.unix(props.entry.timeStamp).fromNow()
@@ -10,7 +20,7 @@ export default props => {
         <div onClick={() => props.upVote()} className="post-up-vote-button">
           ^
         </div>
-        <p>{props.entry.upVotes - props.entry.downVotes}</p>
+        <p>{calculateVotes(props.entry)}</p>
         <div onClick={() => props.downVote()} className="post-down-vote-button">
           ^
         </div>
