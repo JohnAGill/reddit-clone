@@ -47,7 +47,7 @@ export const upVotePost = (sub, id) => {
             [userID]: 1,
           },
           downVotes: {
-            ..._.without(post.downVotes, userID),
+            ..._.omit(post.downVotes, userID),
           },
         }
       })
@@ -80,7 +80,7 @@ export const downVotePost = (sub, id) => {
             [userID]: 1,
           },
           upVotes: {
-            ..._.without(post.upVotes, userID),
+            ..._.omit(post.upVotes, userID),
           },
         }
       })
